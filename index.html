@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Random Quote Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body
+    class=" bg-gray-100 dark:bg-gray-900 transition-colors duration-300 min-h-screen"
+  >
+    <div
+      class="container mx-auto px-4 py-8 flex flex-col min-h-screen max-w-5xl"
+    >
+      <!-- Header with title and theme toggle -->
+      <header class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <h1
+            class="text-3xl md:text-4xl font-bold text-indigo-700 dark:text-indigo-400"
+          >
+            ImamQuotes
+          </h1>
+          <div
+            class="ml-3 text-sm px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 rounded-full hidden md:block"
+          >
+            <span id="connection-status">
+              <i class="fas fa-wifi text-green-500 mr-1"></i>
+              <span>Online</span>
+            </span>
+          </div>
+        </div>
+
+        <button
+          id="theme-toggle"
+          class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors"
+        >
+          <i class="fas fa-sun dark:hidden"></i>
+          <i class="fas fa-moon hidden dark:block"></i>
+        </button>
+      </header>
+
+      <main class="flex-grow flex flex-col lg:flex-row gap-6">
+        <!-- Left column: Quote Display and Actions -->
+        <div class="w-full lg:w-2/3 flex flex-col">
+          <!--Category selector-->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <label
+                for="category-select"
+                class="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Choose Category
+              </label>
+              <span
+                id="offline-badge"
+                class="hidden text-xs px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full"
+              >
+                <i class="fas fa-exclamation-triangle mr-1"></i>
+                Offline Mode
+              </span>
+            </div>
+            <div class="relative">
+              <select
+                id="category-select"
+                class="w-full p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none text-gray-700 dark:text-gray-300 cursor-pointer"
+              >
+                <option value="all">All Categories</option>
+                <option value="inspiration">Inspiration</option>
+                <option value="motivation">Motivation</option>
+                <option value="success">Success</option>
+                <option value="wisdom">Wisdom</option>
+                <option value="happiness">Happiness</option>
+                <option value="life">Life</option>
+                <option value="love">Love</option>
+              </select>
+              <div
+                class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+
+          <!--Quote Display-->
+          <div
+            id="quote-container"
+            class="mb-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex-grow border border-gray-200 dark:border-gray-700"
+          >
+            <!--Loading Indicator-->
+            <div id="loading-indicator" class="hidden">
+              <div
+                class="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full mb-3 animate-pulse"
+              ></div>
+              <div
+                class="h-4 w-1/2 bg-gray-200 dark:bg-gray-700 rounded-full mb-3 animate-pulse"
+              ></div>
+              <div
+                class="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"
+              ></div>
+            </div>
+
+            <!-- Error Message -->
+            <div
+              id="error-message"
+              class="hidden bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 p-4 rounded-lg mb-4"
+            >
+              <i class="fas fa-exclamation-circle mr-2"></i>
+              <span>Failed to fetch quote. Please try again.</span>
+            </div>
+
+            <!-- Quote Content -->
+            <div id="quote-content">
+              <blockquote class="relative">
+                <i
+                  class="fas fa-quote-left text-4xl opacity-15 text-indigo-400 absolute -top-2 -left-1"
+                ></i>
+                <p
+                  id="quote-text"
+                  class="text-xl md:text-2xl text-gray-800 dark:text-gray-200 mt-4 mb-6 leading-relaxed"
+                >
+                </p>
+                <footer class="flex items-center justify-between">
+                  <cite
+                    id="quote-author"
+                    class="text-lg text-pink-600 dark:text-pink-400 font-medium not-italic"
+                  >
+                    
+                  </cite>
+                  <div id="quote-tags" class="flex flex-wrap gap-2">
+                    <span
+                      id="category-choice"
+                      class="text-xs px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 rounded-full"
+                    >
+                      
+                    </span>
+                  </div>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Quote Actions -->
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <button
+              id="new-quote-btn"
+              class="col-span-2 md:col-span-1 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg shadow-md transition-all cursor-pointer"
+            >
+              <i class="fas fa-sync-alt"></i>
+              <span>New</span>
+            </button>
+
+            <button
+              id="favorite-btn"
+              class="flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-3 px-4 rounded-lg shadow-md transition-all cursor-pointer"
+            >
+              <i class="far fa-heart"></i>
+              <span>Save</span>
+            </button>
+
+            <button
+              id="copy-btn"
+              class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg shadow-md transition-all cursor-pointer"
+            >
+              <i class="far fa-copy"></i>
+              <span>Copy</span>
+            </button>
+
+            <button
+              id="tweet-btn"
+              class="flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white py-3 px-4 rounded-lg shadow-md transition-all cursor-pointer"
+            >
+              <i class="fab fa-twitter"></i>
+              <span>Tweet</span>
+            </button>
+
+            <button
+              id="speak-btn"
+              class="flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-800 text-white py-3 px-4 rounded-lg shadow-md transition-all cursor-pointer"
+            >
+              <i class="fas fa-volume-up"></i>
+              <span>Speak</span>
+            </button>
+          </div>
+
+          <!-- Notification Toast -->
+          <div
+            id="notification"
+            class="fixed bottom-4 right-4 flex items-center p-4 rounded-lg shadow-lg bg-gray-800 text-white transform translate-y-24 transition-transform duration-300 z-50 opacity-0"
+          >
+            <i
+              id="notification-icon"
+              class="fas fa-check-circle mr-2 text-green-400"
+            >
+            </i>
+            <span id="notification-message">Quote copied to clipboard</span>
+          </div>
+        </div>
+
+        <!--  Right column: Favorites -->
+        <div class="w-full lg:w-1/3">
+          <div 
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-5 h-full border border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between items-center mb-4">
+              <h2
+                class="text-xl font-bold text-indigo-700 dark:text-indigo-400">
+                <i class="fas fa-bookmark mr-2"></i>
+                Favorite Quotes
+              </h2>
+              <button
+                id="clear-favorites-btn"
+                class="text-sm text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 cursor-pointer">
+                <i class="fas fa-trash-alt mr-1"></i>
+                Clear All
+              </button>
+            </div>
+
+            <div id="no-favorites"
+            class="text-center py-10 text-gray-500 dark:text-gray-400" >
+              <i class="far fa-heart text-3xl mb-2 animate-pulse"></i>
+              <p>No favo Quotes yet .</p>
+              <p class="text-sm mt-2">
+                Click the "Save" button to add quotes to your collection and revisit them anytime
+              </p>
+            </div>
+
+            <div 
+              id="favorites-list"
+              class="max-h-[500px] overflow-y-auto pr-2 hidden space-y-4">
+              
+              <!-- favorite quotes that i will populate with typescript -->
+
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="mt-10 text-center text-slate-500 dark:text-slate-400 text-sm py-6 border-t border-gray-200 dark:border-slate-800/50">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+          <p>
+            made by <strong>Ayman Imam</strong><span class="text-pink-500">❤</span> with vanilla Typescript & tailwindcss
+          </p>
+          <span class="hidden md:block text-slate-300 dark:text-slate-600">|</span>
+          <p>
+            <span id="apiStatus" class="inline-flex items-center">
+              <span class="w-2 h-2 mr-1.5 rounded-full bg-green-500 animate-pulse"></span>
+              API Status: Connected
+            </span>
+          </p>
+          <span class="hidden md:block text-slate-300 dark:text-slate-600">|</span>
+          <a href="https://github.com/hayaymanf/random-quote-generator" target="_blank">
+            <p class="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 transition-colors cursor-pointer">
+              <i class="fas fa-code mr-1"></i>
+              View on GitHub
+            </p>
+          </a>
+        </div>
+      </footer>
+      
+    </div>
+    <script type="module" src="src/main.ts"></script>
+  </body>
+</html>
