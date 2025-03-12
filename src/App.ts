@@ -25,6 +25,7 @@ export class App {
   private loadingIndicator: HTMLElement | null;
   private errorMessage: HTMLElement | null;
   
+  
 
   constructor() {
     this.tweetBtn = document.getElementById('tweet-btn') as HTMLButtonElement;

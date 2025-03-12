@@ -69,7 +69,7 @@ export class FavoritesManager {
    */
   private createFavoriteQuoteElement(quote: Quote): HTMLElement {
     const quoteElement = document.createElement('div');
-    quoteElement.className = 'bg-white/5 dark:bg-black/5 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors';
+    quoteElement.className = 'bg-white/5 dark:bg-black/5 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors cursor-pointer';
     
     // Format timestamp if available
     let timeAgo = '';
@@ -85,20 +85,20 @@ export class FavoritesManager {
         </p>
         <div class="flex space-x-2">
           <button 
-            class="text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
+            class="text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors cursor-pointer"
             title="Load this quote"
             data-action="load"
             data-id="${quote.id}"
           >
-            <i class="fas fa-arrow-right text-xs"></i>
+            <i class="fas fa-arrow-right"></i>
           </button>
           <button 
-            class="text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            class="text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
             title="Remove from favorites"
             data-action="remove"
             data-id="${quote.id}"
           >
-            <i class="fas fa-times text-xs"></i>
+            <i class="fas fa-times"></i>
           </button>
         </div>
       </div>
