@@ -1,7 +1,6 @@
 // src/components/FavoritesManager.ts
 import { Quote } from '../models/QuoteModel';
 import { FavoritesService } from '../services/favoritesService';
-import { ClipboardUtils } from '../utils/clipboardUtils';
 
 export class FavoritesManager {
   private favoriteBtn: HTMLButtonElement | null;

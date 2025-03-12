@@ -24,7 +24,7 @@ export class App {
   private categoryChoice: HTMLElement | null;
   private loadingIndicator: HTMLElement | null;
   private errorMessage: HTMLElement | null;
-  private favoritesManager: FavoritesManager | null = null;
+  
 
   constructor() {
     this.tweetBtn = document.getElementById('tweet-btn') as HTMLButtonElement;
@@ -45,8 +45,8 @@ export class App {
     ApiStatusManager.init();
     
     // Initialize favorites manager with a callback to update the quote display
-    this.favoritesManager = new FavoritesManager((quote: Quote) => this.displayQuote(quote));
-  }
+    new FavoritesManager((quote: Quote) => this.displayQuote(quote));
+    }
 
   private async fetchNewQuote(): Promise<void> {
     if (!this.categorySelect) return;
