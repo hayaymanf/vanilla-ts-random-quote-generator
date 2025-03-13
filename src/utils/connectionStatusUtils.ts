@@ -69,13 +69,13 @@ export class ConnectionStatusManager {
         if (icon) icon.classList.replace('text-red-500', 'text-green-500');
         if (statusText) statusText.textContent = 'Online';
         this.statusElement.style.display = 'block';
-        this.offlineBadgeElement.style.display = 'hidden'
+        this.offlineBadgeElement.classList.replace('block' , 'hidden' )
       } else {
         // User is offline
         if (icon) icon.classList.replace('text-green-500', 'text-red-500');
         if (statusText) statusText.textContent = 'Offline';
         this.statusElement.style.display = 'block';
-        this.offlineBadgeElement.style.display = 'block'
+        this.offlineBadgeElement.classList.replace('hidden' , 'block')
       }
     }
   }
