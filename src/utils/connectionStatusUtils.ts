@@ -2,12 +2,14 @@
 
 export class ConnectionStatusManager {
     private static statusElement: HTMLElement | null;
+    private static offlineBadgeElement: HTMLElement | null;
   
     static init(): void {
       this.statusElement = document.getElementById('connection-status');
+      this.offlineBadgeElement = document.getElementById('offline-badge')
   
-      if (!this.statusElement) {
-        console.error('Connection status element not found');
+      if (!this.statusElement || !this.offlineBadgeElement) {
+        console.error('Connection status element or offline badge element not found');
         return;
       }
   
@@ -57,7 +59,7 @@ export class ConnectionStatusManager {
      * @param isOnline - Boolean representing online or offline status.
      */
     private static updateConnectionStatus(isOnline: boolean): void {
-      if (!this.statusElement) return;
+      if (!this.statusElement || !this.offlineBadgeElement) return;
   
       const icon = this.statusElement.querySelector('i');
       const statusText = this.statusElement.querySelector('span');
@@ -67,11 +69,13 @@ export class ConnectionStatusManager {
         if (icon) icon.classList.replace('text-red-500', 'text-green-500');
         if (statusText) statusText.textContent = 'Online';
         this.statusElement.style.display = 'block';
+        this.offlineBadgeElement.style.display = 'hidden'
       } else {
         // User is offline
         if (icon) icon.classList.replace('text-green-500', 'text-red-500');
         if (statusText) statusText.textContent = 'Offline';
         this.statusElement.style.display = 'block';
+        this.offlineBadgeElement.style.display = 'block'
       }
     }
   }
