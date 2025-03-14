@@ -23,11 +23,17 @@ export class ClipboardUtils {
      */
     private static showNotification(message: string, success: boolean): void {
       const notification = document.getElementById('notification');
-      if (!notification) return;
-  
-      notification.textContent = message;
+      const notificationIcon = document.getElementById('notification-icon');
+      const notificationMessage = document.getElementById('notification-message');
+      if (!notification || !notificationIcon || !notificationMessage) return;
+
+      notificationIcon.className = success 
+      ? 'fas fa-check-circle mr-2 text-green-400' 
+      : 'fas fa-exclamation-circle mr-2 text-red-400';
+      notificationMessage.textContent = message;
+
       notification.classList.remove('opacity-0', 'translate-y-24');
-      notification.classList.add(success ? 'bg-green-600' : 'bg-red-600');
+      notification.classList.add(success ? 'bg-gray-800' : 'bg-red-600');
   
       setTimeout(() => {
         notification.classList.add('opacity-0', 'translate-y-24');

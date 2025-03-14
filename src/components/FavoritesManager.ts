@@ -207,11 +207,11 @@ export class FavoritesManager {
    * Handle clearing all favorites
    */
   private handleClearFavorites(): void {
-    if (confirm('Are you sure you want to clear all favorites?')) {
+    // if (confirm('Are you sure you want to clear all favorites?')) {
       FavoritesService.clearFavorites();
       this.updateFavoritesList();
       this.showNotification('All favorites cleared', true);
-    }
+    // }
   }
 
   /**

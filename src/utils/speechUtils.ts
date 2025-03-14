@@ -30,7 +30,7 @@ export class SpeechUtils {
   
       // Ensure voices are loaded before speaking
       if (!this.isVoiceLoaded) {
-        console.warn('Voices not loaded yet, retrying...');
+        console.warn('Voices not loaded yet, retrying...'); 
         setTimeout(() => this.speakText(text), 200);
         return;
       }

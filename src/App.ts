@@ -143,7 +143,7 @@ export class App {
     // Pass the quote and author separately to avoid formatting issues
     SocialShareUtils.shareOnTwitter(quote, author);
   }
-
+ 
   /**
    * Initialize the application
    */

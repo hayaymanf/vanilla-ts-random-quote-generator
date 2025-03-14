@@ -6,3 +6,4 @@ export interface Quote {
   id?: string; // Unique identifier for each quote
   timestamp?: number; // When the quote was added to favorites
 }
+ 

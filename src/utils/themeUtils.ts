@@ -38,7 +38,7 @@ export class ThemeManager {
    * Toggle between light and dark themes
    */
   static toggleTheme(): Theme {
-    const currentTheme = this.getCurrentTheme();
+    const currentTheme = this.getCurrentTheme(); 
     const newTheme: Theme = currentTheme === 'light' ? 'dark' : 'light';
     this.saveTheme(newTheme);
     this.applyTheme(newTheme);

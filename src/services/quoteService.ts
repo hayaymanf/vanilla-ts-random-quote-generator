@@ -14,7 +14,7 @@ export class QuoteService {
   
         // Timeout handling
         const timeoutId = setTimeout(() => {
-          reject(new Error('API request timed out'));
+          reject(new Error('API request timed out')); 
           cleanup();
         }, 5000);
   

@@ -72,7 +72,7 @@ export class FavoritesService {
       favorite.text === quote.text && favorite.author === quote.author
     );
   }
-
+ 
   /**
    * Generate a unique ID for a quote
    * @returns Unique string ID

@@ -9,7 +9,7 @@ export class ThemeToggle {
 
   constructor(elementId: string = 'theme-toggle') {
     this.element = document.getElementById(elementId);
-    this.init();
+    this.init(); 
   }
 
   private init(): void {

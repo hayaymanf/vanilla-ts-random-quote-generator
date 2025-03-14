@@ -23,7 +23,7 @@ export class ConnectionStatusManager {
       // Set an interval to check connection status every 5 seconds
       setInterval(() => {
         this.checkConnectionStatus();
-      }, 5000);
+      }, 500);
     }
   
     /**

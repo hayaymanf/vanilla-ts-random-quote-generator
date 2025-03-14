@@ -59,7 +59,7 @@ export class SocialShareUtils {
         
         if (shareWindow) {
           // Show a notification that the share window opened
-          this.showShareNotification('Twitter share window opened');
+          this.showShareNotification('Twitter share window opened' );
         } else {
           // Window.open might be blocked by popup blockers
           this.showShareNotification('Please allow popups to share on Twitter', false);

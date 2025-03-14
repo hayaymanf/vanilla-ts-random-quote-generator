@@ -1,4 +1,4 @@
-// src/utils/apiStatusUtils.ts
+// src/utils/apiStatusUtils.ts 
 export class ApiStatusManager {
     private static apiStatusElement: HTMLElement | null = null;
   
@@ -108,7 +108,7 @@ export class ApiStatusManager {
       // Periodically check API status every 5 seconds
       setInterval(() => {
         this.checkApiStatus();
-      }, 5000);
+      }, 1000);
     }
   }
   
